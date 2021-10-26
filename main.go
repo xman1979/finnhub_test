@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"context"
+	"io/ioutil"
 	"time"
+	"strings"
 	"sync"
 	"sync/atomic"
 	finnhub "github.com/Finnhub-Stock-API/finnhub-go/v2"
@@ -18,24 +20,28 @@ func getFinnhubAPI() (*finnhub.DefaultApiService, error) {
 		return api, nil
 	}
 	cfg := finnhub.NewConfiguration()
-	cfg.AddDefaultHeader("X-Finnhub-Token", "FB API_KEY")
+	key, err := ioutil.ReadFile("/var/keychain/finnhub.key")
+	if err != nil {
+		return nil, err
+	}
+	cfg.AddDefaultHeader("X-Finnhub-Token", strings.TrimSuffix(string(key), "\n"))
 	api = finnhub.NewAPIClient(cfg).DefaultApi
 	return api, nil
 }
 
-func getStockNameFromCompanyProfile(ctx context.Context, finnhubSymbol string) (string, error) {
+func getStockQuote(ctx context.Context, finnhubSymbol string) (string, error) {
 	api, err := getFinnhubAPI()
 	if err != nil {
 		return "", err
 	}
-	profile, _, err := api.CompanyProfile2(ctx).Symbol(finnhubSymbol).Execute()
+	quote, _, err := api.Quote(ctx).Symbol(finnhubSymbol).Execute()
 	if err != nil {
 		return "", err
 	}
-	if !profile.HasName() {
-		return "", fmt.Errorf("name doesn't exist in company profile for symbol %s", finnhubSymbol)
+	if !quote.HasC() {
+		return "", fmt.Errorf("current price is missing for symbol %s", finnhubSymbol)
 	}
-	return profile.GetName(), nil
+	return fmt.Sprintf("%3.2f", quote.GetC()), nil
 }
 
 func main() {
@@ -54,7 +60,7 @@ func main() {
 				wg.Done()
 			}()
 			for symbol := range input {
-				_, err := getStockNameFromCompanyProfile(ctx, symbol)
+				_, err := getStockQuote(ctx, symbol)
 				if err != nil {
 					fmt.Printf("failed to get stock name from company profile, err = %s\n", err)
 				} else {
