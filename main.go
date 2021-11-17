@@ -108,7 +108,7 @@ func main() {
 				beginRequest := time.Now()
 				switch(*endpoint) {
 				case "quote":
-					_, err = getStockCandles(ctx, symbol)
+					_, err = getStockQuote(ctx, symbol)
 				case "candle":
 					_, err = getStockCandles(ctx, symbol)
 				case "bf":
@@ -123,8 +123,8 @@ func main() {
 				requestTime := time.Since(beginRequest).Milliseconds()
 				if countSucceed % 100 == 0 && countSucceed > 0 {
 					delta := time.Since(start).Seconds()
-					fmt.Printf("successfully get name for %d symbols, QPS = %3.2f, request time %d ms for last symbol %s\n",
-						countSucceed, float64(countSucceed)/delta, requestTime, symbol)
+					fmt.Printf("successfully call %s for %d symbols, avg QPS = %3.2f, request time %d ms for last symbol %s\n",
+						*endpoint, countSucceed, float64(countSucceed)/delta, requestTime, symbol)
 				}
 			}
 		}()
