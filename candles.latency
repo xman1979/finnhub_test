@@ -1,0 +1,10 @@
+./finnhub_test --endpoint=candle
+successfully call candle for 100 symbols, avg QPS = 4.36, request time 22904 ms for last symbol AAPL
+successfully call candle for 200 symbols, avg QPS = 6.93, request time 28859 ms for last symbol AAPL
+successfully call candle for 300 symbols, avg QPS = 8.62, request time 34783 ms for last symbol AAPL
+successfully call candle for 400 symbols, avg QPS = 9.38, request time 42617 ms for last symbol AAPL
+successfully call candle for 500 symbols, avg QPS = 10.34, request time 48348 ms for last symbol AAPL
+successfully call candle for 600 symbols, avg QPS = 11.86, request time 50599 ms for last symbol AAPL
+successfully call candle for 700 symbols, avg QPS = 13.00, request time 53853 ms for last symbol AAPL
+successfully call candle for 800 symbols, avg QPS = 14.26, request time 56083 ms for last symbol AAPL
+err = 504 Gateway Timeout

@@ -1,0 +1,14 @@
+./finnhub_test --endpoint=quote
+successfully call quote for 100 symbols, avg QPS = 108.53, request time 913 ms for last symbol AAPL
+successfully call quote for 200 symbols, avg QPS = 146.01, request time 1363 ms for last symbol AAPL
+successfully call quote for 300 symbols, avg QPS = 210.58, request time 1421 ms for last symbol AAPL
+successfully call quote for 400 symbols, avg QPS = 274.36, request time 1449 ms for last symbol AAPL
+successfully call quote for 500 symbols, avg QPS = 332.27, request time 166 ms for last symbol AAPL
+successfully call quote for 600 symbols, avg QPS = 387.71, request time 1544 ms for last symbol AAPL
+successfully call quote for 700 symbols, avg QPS = 443.35, request time 1570 ms for last symbol AAPL
+successfully call quote for 800 symbols, avg QPS = 492.83, request time 1615 ms for last symbol AAPL
+successfully call quote for 900 symbols, avg QPS = 552.45, request time 219 ms for last symbol AAPL
+successfully call quote for 1000 symbols, avg QPS = 605.40, request time 1643 ms for last symbol AAPL
+successfully call quote for 1100 symbols, avg QPS = 661.79, request time 124 ms for last symbol AAPL
+successfully call quote for 1200 symbols, avg QPS = 710.57, request time 122 ms for last symbol AAPL
+err = 429 Too Many Requests
